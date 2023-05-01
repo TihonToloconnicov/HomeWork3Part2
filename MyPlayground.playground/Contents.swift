@@ -93,8 +93,11 @@ class Cart {
     }
     
     func clear() {
-        for index in 0 ... products.count {
-            products.remove(at: index)
+        
+        for index in 0 ..< products.count {
+          
+            products.remove(at: 0)
+            
         }
     }
     
@@ -202,22 +205,32 @@ class Screen {
         
         let separatorLine = "\n-----------------------------------------------"
         
-        for index in 0 ..< cart.products.count {
-            let product = cart.products[index]
-            resultStringToPrint += "\n\(index + 1)\n"
-            resultStringToPrint += product.textDescription()
+        if cart.totalPrice() ==  0.00{
+            resultStringToPrint +=  "\nКошик пустий. Для оформлення замовлення додайте хоча б один товар"
+            
+        }else{
+            
+            
+            for index in 0 ..< cart.products.count {
+                let product = cart.products[index]
+                resultStringToPrint += "\n\(index + 1)\n"
+                resultStringToPrint += product.textDescription()
+            }
+            
+            resultStringToPrint += separatorLine
+            
+            resultStringToPrint += "\nTotal price: \(String(format: "%.2f", cart.totalPrice())) UAH"
+            resultStringToPrint += "\nDiscount: \(cart.discountPercentValue())%"
+            
+            resultStringToPrint += separatorLine
+            
+            
+            
+            resultStringToPrint += "\nTotal price with Discount:\n\(String(format: "%.2f", cart.totalPriceWithDiscount())) UAH"
+            
+            
+                resultStringToPrint += separatorLine + separatorLine
         }
-        
-        resultStringToPrint += separatorLine
-        
-        resultStringToPrint += "\nTotal price: \(String(format: "%.2f", cart.totalPrice())) UAH"
-        resultStringToPrint += "\nDiscount: \(cart.discountPercentValue())%"
-        
-        resultStringToPrint += separatorLine
-        
-        resultStringToPrint += "\nTotal price with Discount:\n\(String(format: "%.2f", cart.totalPriceWithDiscount())) UAH"
-        
-        resultStringToPrint += separatorLine + separatorLine
         
         print(resultStringToPrint)
     }
@@ -359,7 +372,7 @@ screen.printCheck(cart: cart)
 
 // Початок коду сценарію для Пункт 2
 
-/*
+
  
 print("\nSCENARIO 2:\n")
 
@@ -371,7 +384,7 @@ cart.clear()
 // Користувач натискає кнопку "Оформити замовлення", щоб побачити чек
 screen.printCheck(cart: cart)
 
- */
+ 
 
 // Кінець коду сценарію для Пункт 2
 
